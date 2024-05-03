@@ -45,17 +45,12 @@ Siga o passo-a-passo para excutar o projeto
 
 ##### Clone o projeto
 ```bash
-$ git clone https://github.com/DavidAugustoo/Knights-Challenge
+$ git clone https://github.com/DavidAugustoo/Knights-Challenge-Frontend
 ```
 
 ##### Acesse o repositório baixado
 ```bash
-$ cd Knights-Challenge
-```
-
-##### Inicie os Containers com Docker Compose:
-```bash
-$ docker-compose up -d
+$ cd Knights-Challenge-Frontend
 ```
 
 ##### Instale as dependências
@@ -63,22 +58,9 @@ $ docker-compose up -d
 $ npm install
 ```
 
-##### Configure as variáveis de ambiente
-```bash
-PORT=8080
-MONGO_HOST=example_cluster_mongodb
-MONGO_USERNAME=example_user
-MONGO_PASSWORD=example_user_password
-```
-
 ##### Inicie o servidor
 ```bash
 $ npm run dev
-```
-
-##### Acesse a documentação
-```bash
-http://localhost:8080/api-docs/
 ```
 
 ## Suporte
