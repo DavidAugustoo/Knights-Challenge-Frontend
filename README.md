@@ -1,3 +1,4 @@
+clear
 <p align="center">
   <a target="blank"><img width="100%"src="https://i.imgur.com/FQRxQJ9.png" width="320" alt="Nest Logo" /></a>
 </p>
