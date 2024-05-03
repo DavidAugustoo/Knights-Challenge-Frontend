@@ -77,7 +77,7 @@ export function FormDialog() {
       title: 'Armas',
       data: (
         <Flex direction="column" gap="3">
-          fazendo ainda
+          in progress
         </Flex>
       ),
     },
