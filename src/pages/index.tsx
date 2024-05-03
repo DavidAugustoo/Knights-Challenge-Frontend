@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react'
 
 import { Knight } from '@shared/types/knight'
 
+import { FormDialog } from '@components/FormDialog'
 import { Table } from '@components/Table'
 import { Tabs } from '@components/Tabs'
 
-import { Box, Container } from '@radix-ui/themes'
-import { truncate } from 'fs'
+import { Box, Container, Flex } from '@radix-ui/themes'
 
 const Home: React.FC = () => {
   const [knights, setKnights] = useState<Knight[]>([])
@@ -39,7 +39,6 @@ const Home: React.FC = () => {
   }, [getKnights, activeTab])
 
   const handleDiedKnight = async (id: string) => {
-    console.log('fui chamado')
     try {
       const response = await fetch(`/api/knights/${id}`, {
         method: 'DELETE',
@@ -118,12 +117,15 @@ const Home: React.FC = () => {
   ]
 
   return (
-    <Container>
-      <Tabs
-        data={tabsHome}
-        setActiveTab={setActiveTab}
-        defaultActive="knights"
-      />
+    <Container minHeight={'80vh'}>
+      <Flex gap="20px" direction="column" pt={'30vh'}>
+        <Tabs
+          data={tabsHome}
+          setActiveTab={setActiveTab}
+          defaultActive="knights"
+        />
+        <FormDialog />
+      </Flex>
     </Container>
   )
 }
