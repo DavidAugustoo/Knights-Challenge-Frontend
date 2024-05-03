@@ -46,7 +46,7 @@ export function DataDialog({ data }: DataDialogProps) {
   const tabsDialog = [
     {
       value: 'info',
-      title: 'Cavaleiros',
+      title: 'Informações',
       data: (
         <Flex direction="column" gap="3">
           {fieldsInfo.map(({ label, value }, index) => (

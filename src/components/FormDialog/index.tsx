@@ -13,6 +13,7 @@ import {
   Flex,
   IconButton,
   RadioCards,
+  Slider,
   Text,
   TextField,
 } from '@radix-ui/themes'
@@ -20,37 +21,53 @@ import {
 export function FormDialog() {
   const [activeTab, setActiveTab] = useState('info')
 
-  const fieldsInfo = [
-    { label: 'Nome' },
-    { label: 'Nickname' },
-    { label: 'Data de aniversário' },
-    { label: 'Atributo Principal' },
-    { label: 'Estado de vida' },
-    { label: 'Ataque' },
-    { label: 'Experiência' },
+  interface Ifield {
+    label: string
+    type:
+      | 'number'
+      | 'search'
+      | 'time'
+      | 'text'
+      | 'hidden'
+      | 'tel'
+      | 'url'
+      | 'email'
+      | 'date'
+      | 'datetime-local'
+      | 'month'
+      | 'password'
+      | 'week'
+      | undefined
+  }
+
+  const fieldsInfo: Ifield[] = [
+    { label: 'Nome', type: 'text' },
+    { label: 'Nickname', type: 'text' },
+    { label: 'Data de aniversário', type: 'date' },
+    { label: 'Atributo Principal', type: 'text' },
   ]
 
-  const fieldsAttibutes = [
-    { label: 'Força' },
-    { label: 'Destreza' },
-    { label: 'Constituição' },
-    { label: 'Inteligência' },
-    { label: 'Sabedoria' },
-    { label: 'Carisma' },
+  const fieldsAttibutes: Ifield[] = [
+    { label: 'Força', type: 'number' },
+    { label: 'Destreza', type: 'number' },
+    { label: 'Constituição', type: 'number' },
+    { label: 'Inteligência', type: 'number' },
+    { label: 'Sabedoria', type: 'number' },
+    { label: 'Carisma', type: 'number' },
   ]
 
   const tabsDialog = [
     {
       value: 'info',
-      title: 'Cavaleiros',
+      title: 'Informações',
       data: (
         <Flex direction="column" gap="3">
-          {fieldsInfo.map(({ label }, index) => (
+          {fieldsInfo.map(({ label, type }, index) => (
             <label key={index}>
               <Text as="div" size="2" mb="1" weight="bold">
                 {label}
               </Text>
-              <TextField.Root disabled />
+              <TextField.Root type={type} />
             </label>
           ))}
         </Flex>
@@ -61,12 +78,12 @@ export function FormDialog() {
       title: 'Atributos',
       data: (
         <Flex direction="column" gap="3">
-          {fieldsAttibutes.map(({ label }, index) => (
+          {fieldsAttibutes.map(({ label, type }, index) => (
             <label key={index}>
               <Text as="div" size="2" mb="1" weight="bold">
                 {label}
               </Text>
-              <TextField.Root disabled />
+              <TextField.Root type={type} defaultValue={0} />
             </label>
           ))}
         </Flex>
@@ -92,6 +109,8 @@ export function FormDialog() {
       </Dialog.Trigger>
 
       <Dialog.Content maxWidth="450px">
+        <Dialog.Title>Cadastrar Cavaleiro</Dialog.Title>
+
         <Box minHeight={'530px'}>
           <Tabs
             data={tabsDialog}
@@ -101,7 +120,12 @@ export function FormDialog() {
         </Box>
         <Flex gap="3" mt="4" justify="end">
           <Dialog.Close>
-            <Button>Fechar</Button>
+            <Button variant="soft" color="gray">
+              Cancelar
+            </Button>
+          </Dialog.Close>
+          <Dialog.Close>
+            <Button>Cadastrar</Button>
           </Dialog.Close>
         </Flex>
       </Dialog.Content>
