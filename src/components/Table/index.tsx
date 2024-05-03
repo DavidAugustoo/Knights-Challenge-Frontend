@@ -52,7 +52,7 @@ export function Table({
                 <Box>
                   <IconButton
                     color={knight.isDead ? 'gray' : 'ruby'}
-                    onClick={() => handleDeleteKnight(knight._id)}
+                    onClick={() => handleDeleteKnight(knight._id as string)}
                     disabled={knight.isDead}
                   >
                     <Skull size={18} weight="fill" />

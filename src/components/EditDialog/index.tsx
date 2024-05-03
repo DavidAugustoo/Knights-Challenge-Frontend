@@ -31,7 +31,7 @@ export function EditDialog({ data, handleEditKnight }: EditDialogProps) {
     }
     setIsSubmitting(true)
     try {
-      const isSuccess = await handleEditKnight(data._id, nickname)
+      const isSuccess = await handleEditKnight(data._id as string, nickname)
       setOpen(!isSuccess)
     } catch (error) {
       console.error('Erro ao atualizar o cavaleiro:', error)
