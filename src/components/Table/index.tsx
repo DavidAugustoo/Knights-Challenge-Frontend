@@ -7,6 +7,7 @@ import { EditDialog } from '@components/EditDialog'
 
 import { Eye, PencilSimple, Skull } from '@phosphor-icons/react'
 import { Box, Flex, IconButton, Table as TableRadix } from '@radix-ui/themes'
+import { calculateAge } from '@utils/calculateAge'
 
 interface TableProps {
   columns: string[]
@@ -38,7 +39,7 @@ export function Table({
         {data.map((knight) => (
           <TableRadix.Row key={knight._id}>
             <TableRadix.RowHeaderCell>{knight.name}</TableRadix.RowHeaderCell>
-            <TableRadix.Cell>{knight.birthday}</TableRadix.Cell>
+            <TableRadix.Cell>{calculateAge(knight.birthday)}</TableRadix.Cell>
             <TableRadix.Cell>{knight.keyAttribute}</TableRadix.Cell>
             <TableRadix.Cell>{knight.attack}</TableRadix.Cell>
             <TableRadix.Cell>{knight.exp}</TableRadix.Cell>
