@@ -83,9 +83,11 @@ http://localhost:8080/api-docs/
 
 ## Suporte
 
+- Ambiente de Homologação - [Acessar Deploy](https://knights-challenge-frontend.vercel.app/)
 - Documentação da API - [Acessar Swagger](https://k5yddrbtai.us-east-2.awsapprunner.com/api-docs/)
 - Documentação do Projeto - [Acessar PDF](https://drive.google.com/file/d/1JCZr8zUiRIucWH-I_At-I2o9o0-zZvSy/view?usp=sharing)
-- Acessar Collection Insomnia - [Acessar Insomnia](https://drive.google.com/file/d/1ivrShYNGOug4g-xI4lk8OOIoUKitokdb/view?usp=sharing)
+- Collection Insomnia - [Acessar Insomnia](https://drive.google.com/file/d/1ivrShYNGOug4g-xI4lk8OOIoUKitokdb/view?usp=sharing)
+- Backend - [Acessar Repositório Backend](https://github.com/DavidAugustoo/Knights-Challenge)
 
 ## Contato
 
