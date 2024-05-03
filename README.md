@@ -1,40 +1,93 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+  <a target="blank"><img width="100%"src="https://i.imgur.com/FQRxQJ9.png" width="320" alt="Nest Logo" /></a>
+</p>
 
-## Getting Started
+  <p align="center">Knights Challenge é a sua ferramenta para catalogar e gerenciar os heróis do seu universo.</p>
+    <p align="center">
 
-First, run the development server:
+<p align="center">
+  <a href="#tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#funcionalidades">Funcionalidades</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#descrição">Descrição</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#executando-a-aplicação">Instalação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#suporte">Suporte</a>
+</p>
 
+## Tecnologias
+
+- [NodeJs](https://nodejs.org/en/)
+- [Express](https://expressjs.com/pt-br/)
+- [TypeORM](https://typeorm.io/)
+- [MongoDB](https://www.mongodb.com/)
+- [Swagger](https://swagger.io/)
+- [Docker](https://www.docker.com/)
+- [AWS](https://aws.amazon.com/)
+
+## Funcionalidades
+Obs: Funcionalidades desmarcadas estão em andamento
+
+ - [x] - Cadastro de Cavaleiros
+ - [x] - Exclusão de Cavaleiros
+ - [x] - Visualizar detalhes de um Cavaleiro
+ - [x] - Listagem de Cavaleiros falecidos
+ - [x] - Edição de informação de Cavaleiros
+
+
+## Descrição
+
+Knights Challenge é uma plataforma desenvolvida para oferecer facilidade na organização e categorização de heróis lendários. Projetada para entusiastas de aventuras épicas e batalhas mitológicas, o Knights Challenge permite que os usuários registrem e gerenciem uma variedade de heróis, cada um com suas próprias habilidades, armas e histórias de origem.
+
+## Executando a API
+
+Siga o passo-a-passo para excutar o projeto
+
+
+##### Clone o projeto
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+$ git clone https://github.com/DavidAugustoo/Knights-Challenge
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+##### Acesse o repositório baixado
+```bash
+$ cd Knights-Challenge
+```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+##### Inicie os Containers com Docker Compose:
+```bash
+$ docker-compose up -d
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+##### Instale as dependências
+```bash
+$ npm install
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+##### Configure as variáveis de ambiente
+```bash
+PORT=8080
+MONGO_HOST=example_cluster_mongodb
+MONGO_USERNAME=example_user
+MONGO_PASSWORD=example_user_password
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+##### Inicie o servidor
+```bash
+$ npm run dev
+```
 
-## Learn More
+##### Acesse a documentação
+```bash
+http://localhost:8080/api-docs/
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Suporte
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Documentação da API - [Acessar Swagger](https://k5yddrbtai.us-east-2.awsapprunner.com/api-docs/)
+- Documentação do Projeto - [Acessar PDF](https://drive.google.com/file/d/1JCZr8zUiRIucWH-I_At-I2o9o0-zZvSy/view?usp=sharing)
+- Acessar Collection Insomnia - [Acessar Insomnia](https://drive.google.com/file/d/1ivrShYNGOug4g-xI4lk8OOIoUKitokdb/view?usp=sharing)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Contato
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Author - [David Augusto](https://davidaugusto.com/)
+- Linkedin - [/in/davidaugustoo/](https://www.linkedin.com/in/davidaugustoo/)
+- Github - [@davidaugustoo](https://github.com/DavidAugustoo)
