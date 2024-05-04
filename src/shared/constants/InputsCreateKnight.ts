@@ -8,7 +8,38 @@ export const fieldsInfo: IField[] = [
     type: 'date',
     value: 'birthday',
   },
-  { label: 'Atributo Principal', type: 'text', value: 'keyAttribute' },
+  {
+    label: 'Atributo Principal',
+    type: 'text',
+    value: 'keyAttribute',
+    selectOptions: [
+      {
+        title: 'Força',
+        value: 'strength',
+      },
+      {
+        title: 'Destreza',
+        value: 'dexterity',
+      },
+      {
+        title: 'Constituição',
+        value: 'constitution',
+      },
+      {
+        title: 'Inteligência',
+        value: 'intelligence',
+      },
+      {
+        title: 'Sabedoria',
+        value: 'wisdom',
+      },
+      {
+        title: 'Carisma',
+        value: 'charisma',
+      },
+    ],
+    selectDefaultValue: 'strength',
+  },
 ]
 
 export const fieldsAttributes: IFieldAttributes[] = [
@@ -31,6 +62,37 @@ export const fieldsAttributes: IFieldAttributes[] = [
 export const fieldsWeapons: IFieldWeapons[] = [
   { label: 'Nome', type: 'text', value: 'name' },
   { label: 'Mod', type: 'number', value: 'mod' },
-  { label: 'Atributo', type: 'text', value: 'attr' },
-  { label: 'Status', type: 'text', value: 'equipped' },
+  {
+    label: 'Atributo',
+    type: 'text',
+    value: 'attr',
+    selectOptions: [
+      {
+        title: 'Força',
+        value: 'strength',
+      },
+      {
+        title: 'Destreza',
+        value: 'dexterity',
+      },
+      {
+        title: 'Constituição',
+        value: 'constitution',
+      },
+      {
+        title: 'Inteligência',
+        value: 'intelligence',
+      },
+      {
+        title: 'Sabedoria',
+        value: 'wisdom',
+      },
+      {
+        title: 'Carisma',
+        value: 'charisma',
+      },
+    ],
+    selectDefaultValue: 'strength',
+  },
+  { label: 'Status', type: 'text', value: 'equipped', isSwitch: true },
 ]
