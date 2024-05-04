@@ -218,19 +218,29 @@ export function FormDialog() {
               {
                 value: 'info',
                 title: 'Informações',
-                data: fieldsInfo.map(({ label, type, value }) => {
-                  return (
-                    <InfoTab
-                      key={label}
-                      label={label}
-                      type={type}
-                      value={value}
-                      formData={formData}
-                      errors={errors}
-                      handleChange={handleChange}
-                    />
-                  )
-                }),
+                data: fieldsInfo.map(
+                  ({
+                    label,
+                    type,
+                    value,
+                    selectOptions,
+                    selectDefaultValue,
+                  }) => {
+                    return (
+                      <InfoTab
+                        key={label}
+                        label={label}
+                        selectOptions={selectOptions}
+                        selectDefaultValue={selectDefaultValue}
+                        type={type}
+                        value={value}
+                        formData={formData}
+                        errors={errors}
+                        handleChange={handleChange}
+                      />
+                    )
+                  },
+                ),
               },
               {
                 value: 'attributes',
@@ -254,20 +264,30 @@ export function FormDialog() {
                 title: 'Armas',
                 data: (
                   <div>
-                    {fieldsWeapons.map(({ label, type, value }) => {
-                      return (
-                        <WeaponsTab
-                          key={label}
-                          label={label}
-                          type={type}
-                          value={value}
-                          formData={formDataWeapon}
-                          errors={errorsWeapon}
-                          handleChangeWeapon={handleChangeWeapon}
-                          handleSubmitWeapon={handleSubmitWeapon}
-                        />
-                      )
-                    })}
+                    {fieldsWeapons.map(
+                      ({
+                        label,
+                        type,
+                        value,
+                        selectDefaultValue,
+                        selectOptions,
+                      }) => {
+                        return (
+                          <WeaponsTab
+                            key={label}
+                            label={label}
+                            selectOptions={selectOptions}
+                            selectDefaultValue={selectDefaultValue}
+                            type={type}
+                            value={value}
+                            formData={formDataWeapon}
+                            errors={errorsWeapon}
+                            handleChangeWeapon={handleChangeWeapon}
+                            handleSubmitWeapon={handleSubmitWeapon}
+                          />
+                        )
+                      },
+                    )}
 
                     <Flex gap="3" mt="4" justify="end">
                       <Button
