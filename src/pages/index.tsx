@@ -6,7 +6,7 @@ import { FormDialog } from '@components/FormDialog'
 import { Table } from '@components/Table'
 import { Tabs } from '@components/Tabs'
 
-import { Box, Container, Flex } from '@radix-ui/themes'
+import { Container, Flex } from '@radix-ui/themes'
 
 const Home: React.FC = () => {
   const [knights, setKnights] = useState<Knight[]>([])
@@ -95,6 +95,7 @@ const Home: React.FC = () => {
       title: 'Cavaleiros',
       data: (
         <Table
+          isLoading={isLoading}
           columns={columns}
           data={knights}
           handleDeleteKnight={handleDiedKnight}
@@ -107,6 +108,7 @@ const Home: React.FC = () => {
       title: 'Hall of Heros',
       data: (
         <Table
+          isLoading={isLoading}
           columns={columns}
           data={knights}
           handleDeleteKnight={handleDiedKnight}
