@@ -17,7 +17,7 @@ import { AttributeTab } from './AttributesTab'
 import { InfoTab } from './InfotTab'
 import { WeaponsTab } from './WeaponsTab '
 
-import { Plus } from '@phosphor-icons/react'
+import { Plus, WarningCircle } from '@phosphor-icons/react'
 import {
   Dialog,
   Button,
@@ -86,7 +86,6 @@ export function FormDialog() {
   }
 
   const handleChangeWeapon = (fieldName: string, value: string | boolean) => {
-    console.log('to sendo chamado aqui')
     setFormDataWeapon((prevData) => ({
       ...prevData,
       [fieldName]: value,
@@ -102,12 +101,8 @@ export function FormDialog() {
   }
 
   const handleSubmit = async () => {
-    console.log('Fui acionado, mas nao deveria')
-
     try {
       await schemaKnight.validate(formData, { abortEarly: false })
-
-      console.log('Formulário válido, envie os dados:', formData)
 
       setErrors({})
 
@@ -142,32 +137,29 @@ export function FormDialog() {
     try {
       await schemaWeapon.validate(formDataWeapon, { abortEarly: false })
 
-      console.log('Formulário de arma válido, envie os dados:', formDataWeapon)
-
       setErrorsWeapon({})
 
-      // Adicionando a nova arma ao array de armas no formData
       setFormData((prevState) => ({
         ...prevState,
         weapons: [...prevState.weapons, formDataWeapon],
       }))
 
+      setErrors((prevErrors) => {
+        const { weapons, ...restErrors } = prevErrors
+        return restErrors
+      })
       setFormDataWeapon({
         name: '',
         attr: 'strength',
         mod: 0,
         equipped: false,
       })
-
-      console.log(formData)
     } catch (err: any) {
       const newErrors: { [key: string]: string } = {}
 
       err.inner.forEach((error: any) => {
         newErrors[error.path] = error.message
       })
-
-      console.log(newErrors)
 
       setErrorsWeapon(newErrors)
     }
@@ -261,7 +253,16 @@ export function FormDialog() {
               },
               {
                 value: 'weapons',
-                title: 'Armas',
+                title: (
+                  <Flex gap={'5px'} align={'center'}>
+                    <Text color={errors['weapons'] ? 'ruby' : 'gray'}>
+                      Armas
+                    </Text>
+                    {errors['weapons'] && (
+                      <WarningCircle color={'#D45268'} size={18} />
+                    )}
+                  </Flex>
+                ),
                 data: (
                   <div>
                     {fieldsWeapons.map(
@@ -305,6 +306,11 @@ export function FormDialog() {
                         <Text as="div" size="2" mb="1" weight="bold">
                           Armas Cadastradas
                         </Text>
+                        {errors['weapons'] && (
+                          <Text as="div" size="2" mb="1" color="ruby">
+                            Pelo menos uma arma deve ser cadastrada*
+                          </Text>
+                        )}
                         <RadioCards.Root
                           defaultValue="1"
                           columns={{ initial: '0', sm: '3' }}

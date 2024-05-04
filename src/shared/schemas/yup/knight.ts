@@ -13,4 +13,5 @@ export const schemaKnight = Yup.object().shape({
     wisdom: Yup.number().required('Sabedoria é obrigatória').integer(),
     charisma: Yup.number().required('Carisma é obrigatório').integer(),
   }),
+  weapons: Yup.array().min(1, 'Pelo menos uma arma deve ser especificada'),
 })
