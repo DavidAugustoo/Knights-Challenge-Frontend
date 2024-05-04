@@ -1,4 +1,4 @@
-import { IField, IFieldAttributes } from '@shared/types/IField'
+import { IField, IFieldAttributes, IFieldWeapons } from '@shared/types/IField'
 
 export const fieldsInfo: IField[] = [
   { label: 'Nome', type: 'text', value: 'name' },
@@ -26,4 +26,11 @@ export const fieldsAttributes: IFieldAttributes[] = [
   },
   { label: 'Sabedoria', type: 'number', value: 'wisdom' },
   { label: 'Carisma', type: 'number', value: 'charisma' },
+]
+
+export const fieldsWeapons: IFieldWeapons[] = [
+  { label: 'Nome', type: 'text', value: 'name' },
+  { label: 'Mod', type: 'number', value: 'mod' },
+  { label: 'Atributo', type: 'text', value: 'attr' },
+  { label: 'Status', type: 'text', value: 'equipped' },
 ]

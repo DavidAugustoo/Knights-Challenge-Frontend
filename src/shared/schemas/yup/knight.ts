@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 
-export const schema = Yup.object().shape({
+export const schemaKnight = Yup.object().shape({
   name: Yup.string().required('Nome é obrigatório'),
   nickname: Yup.string().required('Nickname é obrigatório'),
   birthday: Yup.string().required('Data de aniversário é obrigatória'),
