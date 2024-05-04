@@ -4,28 +4,13 @@ import {
   fieldsAttibutes,
   fieldsInfo,
 } from '@shared/constants/InputsCreateKnight'
+import { schema } from '@shared/schemas/yup/CreateKnight'
 import { Knight } from '@shared/types/knight'
 
 import { Tabs } from '@components/Tabs'
 
 import { Plus } from '@phosphor-icons/react'
 import { Dialog, Button, Text, TextField, Flex, Box } from '@radix-ui/themes'
-import * as Yup from 'yup'
-
-const schema = Yup.object().shape({
-  name: Yup.string().required('Nome é obrigatório'),
-  nickname: Yup.string().required('Nickname é obrigatório'),
-  birthday: Yup.string().required('Data de aniversário é obrigatória'),
-  keyAttribute: Yup.string().required('Atributo Principal é obrigatório'),
-  attributes: Yup.object().shape({
-    strength: Yup.number().required('Força é obrigatória').integer(),
-    dexterity: Yup.number().required('Destreza é obrigatória').integer(),
-    constitution: Yup.number().required('Constituição é obrigatória').integer(),
-    intelligence: Yup.number().required('Inteligência é obrigatória').integer(),
-    wisdom: Yup.number().required('Sabedoria é obrigatória').integer(),
-    charisma: Yup.number().required('Carisma é obrigatório').integer(),
-  }),
-})
 
 export function FormDialog() {
   const [activeTab, setActiveTab] = useState('info')
