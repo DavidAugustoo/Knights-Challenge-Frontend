@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import {
-  fieldsAttibutes,
+  fieldsAttributes,
   fieldsInfo,
 } from '@shared/constants/InputsCreateKnight'
 import { schema } from '@shared/schemas/yup/CreateKnight'
@@ -9,8 +9,12 @@ import { Knight } from '@shared/types/knight'
 
 import { Tabs } from '@components/Tabs'
 
+import { AttributeTab } from './AttributesTab'
+import { InfoTab } from './InfotTab'
+
 import { Plus } from '@phosphor-icons/react'
 import { Dialog, Button, Text, TextField, Flex, Box } from '@radix-ui/themes'
+import { error } from 'console'
 
 export function FormDialog() {
   const [activeTab, setActiveTab] = useState('info')
@@ -110,55 +114,32 @@ export function FormDialog() {
                   title: 'Informações',
                   data: fieldsInfo.map(({ label, type, value }) => {
                     return (
-                      <Flex direction="column" gap="3" key={label} mb={'4'}>
-                        <label>
-                          <Text as="div" size="2" mb="1" weight="bold">
-                            {label}
-                          </Text>
-                          <TextField.Root
-                            type={type}
-                            name={value}
-                            value={formData[value] as string}
-                            onChange={(e) => {
-                              console.log(value)
-                              handleChange(value, e.target.value)
-                            }}
-                          />
-                          {errors[value] && (
-                            <Text color="ruby" size={'2'}>
-                              {errors[value]}*
-                            </Text>
-                          )}
-                        </label>
-                      </Flex>
+                      <InfoTab
+                        key={label}
+                        label={label}
+                        type={type}
+                        value={value}
+                        formData={formData}
+                        errors={errors}
+                        handleChange={handleChange}
+                      />
                     )
                   }),
                 },
                 {
                   value: 'attributes',
                   title: 'Atributos',
-                  data: fieldsAttibutes.map(({ label, type, value }) => {
+                  data: fieldsAttributes.map(({ label, type, value }) => {
                     return (
-                      <Flex direction="column" gap="3" key={label} mb={'4'}>
-                        <label>
-                          <Text as="div" size="2" mb="1" weight="bold">
-                            {label}
-                          </Text>
-                          <TextField.Root
-                            type={type}
-                            name={value}
-                            value={formData.attributes[value].toString()}
-                            onChange={(e) =>
-                              handleChangeAttributes(value, e.target.value)
-                            }
-                          />
-                          {errors[value] && (
-                            <Text color="ruby" size={'2'}>
-                              {errors[value]}*
-                            </Text>
-                          )}
-                        </label>
-                      </Flex>
+                      <AttributeTab
+                        key={label}
+                        label={label}
+                        type={type}
+                        value={value}
+                        formData={formData}
+                        errors={errors}
+                        handleChangeAttributes={handleChangeAttributes}
+                      />
                     )
                   }),
                 },

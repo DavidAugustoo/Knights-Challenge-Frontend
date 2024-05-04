@@ -20,7 +20,7 @@ export interface IField {
     | undefined
 }
 
-export interface IFieldAttibutes {
+export interface IFieldAttributes {
   label: string
   value: keyof Knight['attributes']
   type:

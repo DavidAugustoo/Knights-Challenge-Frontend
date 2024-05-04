@@ -1,4 +1,4 @@
-import { IField, IFieldAttibutes } from '@shared/types/IField'
+import { IField, IFieldAttributes } from '@shared/types/IField'
 
 export const fieldsInfo: IField[] = [
   { label: 'Nome', type: 'text', value: 'name' },
@@ -11,7 +11,7 @@ export const fieldsInfo: IField[] = [
   { label: 'Atributo Principal', type: 'text', value: 'keyAttribute' },
 ]
 
-export const fieldsAttibutes: IFieldAttibutes[] = [
+export const fieldsAttributes: IFieldAttributes[] = [
   { label: 'Força', type: 'number', value: 'strength' },
   { label: 'Destreza', type: 'number', value: 'dexterity' },
   {

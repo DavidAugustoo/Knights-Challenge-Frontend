@@ -34,7 +34,7 @@ export function DataDialog({ data }: DataDialogProps) {
     { label: 'Experiência', value: data.exp },
   ]
 
-  const fieldsAttibutes = [
+  const fieldsAttributes = [
     { label: 'Força', value: data.attributes.strength },
     { label: 'Destreza', value: data.attributes.dexterity },
     { label: 'Constituição', value: data.attributes.constitution },
@@ -65,7 +65,7 @@ export function DataDialog({ data }: DataDialogProps) {
       title: 'Atributos',
       data: (
         <Flex direction="column" gap="3">
-          {fieldsAttibutes.map(({ label, value }, index) => (
+          {fieldsAttributes.map(({ label, value }, index) => (
             <label key={index}>
               <Text as="div" size="2" mb="1" weight="bold">
                 {label}
