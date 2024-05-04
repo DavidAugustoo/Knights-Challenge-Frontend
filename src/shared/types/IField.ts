@@ -39,4 +39,5 @@ export interface IFieldWeapons extends IFieldBase<Weapon> {
     value: string
   }[]
   selectDefaultValue?: string
+  isSwitch?: boolean
 }

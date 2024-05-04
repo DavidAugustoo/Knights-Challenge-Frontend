@@ -85,7 +85,7 @@ export function FormDialog() {
     }))
   }
 
-  const handleChangeWeapon = (fieldName: string, value: string) => {
+  const handleChangeWeapon = (fieldName: string, value: string | boolean) => {
     console.log('to sendo chamado aqui')
     setFormDataWeapon((prevData) => ({
       ...prevData,
@@ -271,6 +271,7 @@ export function FormDialog() {
                         value,
                         selectDefaultValue,
                         selectOptions,
+                        isSwitch,
                       }) => {
                         return (
                           <WeaponsTab
@@ -282,6 +283,7 @@ export function FormDialog() {
                             value={value}
                             formData={formDataWeapon}
                             errors={errorsWeapon}
+                            isSwitch={isSwitch}
                             handleChangeWeapon={handleChangeWeapon}
                             handleSubmitWeapon={handleSubmitWeapon}
                           />

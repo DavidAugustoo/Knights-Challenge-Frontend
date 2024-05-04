@@ -94,5 +94,5 @@ export const fieldsWeapons: IFieldWeapons[] = [
     ],
     selectDefaultValue: 'strength',
   },
-  { label: 'Status', type: 'text', value: 'equipped' },
+  { label: 'Status', type: 'text', value: 'equipped', isSwitch: true },
 ]
