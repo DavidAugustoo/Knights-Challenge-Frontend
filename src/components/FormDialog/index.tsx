@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 
 import {
   fieldsAttributes,
@@ -29,7 +30,11 @@ import {
 } from '@radix-ui/themes'
 import axios from 'axios'
 
-export function FormDialog() {
+interface FormDialogProps {
+  getKnights: (filter?: string) => Promise<void>
+}
+
+export function FormDialog({ getKnights }: FormDialogProps) {
   const [activeTab, setActiveTab] = useState('info')
   const [open, setOpen] = useState(false)
 
@@ -113,8 +118,6 @@ export function FormDialog() {
   }
 
   const handleSubmit = async () => {
-    console.log('formario enviado', formData)
-
     try {
       await schemaKnight.validate(formData, { abortEarly: false })
 
@@ -122,15 +125,13 @@ export function FormDialog() {
 
       setOpen(false)
 
-      console.log('formario enviado', formData)
-
       await axios.post('/api/knights', formData)
 
       setFormData({
         name: '',
         nickname: '',
         birthday: '',
-        keyAttribute: '',
+        keyAttribute: 'strength',
         attributes: {
           strength: 0,
           dexterity: 0,
@@ -142,14 +143,24 @@ export function FormDialog() {
         weapons: [],
       })
 
-      setOpen(true)
-
-      alert('Knight added successfully')
-    } catch (error) {
       setOpen(false)
 
+      toast.success('Cavaleiro cadastrado com sucesso')
+
+      getKnights()
+    } catch (error: any) {
+      setOpen(true)
+
+      const newErrors: { [key: string]: string } = {}
+
+      error.inner.forEach((error: any) => {
+        newErrors[error.path] = error.message
+      })
+
+      setErrors(newErrors)
+
       console.log('erro', error)
-      alert('Failed to add knight')
+      !newErrors ?? toast.success('Falha ao cadastrar cavaleiro')
     }
   }
   const handleSubmitWeapon = async () => {
@@ -197,7 +208,7 @@ export function FormDialog() {
       name: '',
       nickname: '',
       birthday: '',
-      keyAttribute: '',
+      keyAttribute: 'strength',
       attributes: {
         strength: 0,
         dexterity: 0,
