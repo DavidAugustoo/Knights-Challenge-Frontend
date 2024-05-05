@@ -193,6 +193,13 @@ export function FormDialog() {
     setOpen(false)
   }
 
+  const handleRemoveWeapon = (index: number) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      weapons: prevState.weapons.filter((_, i) => i !== index),
+    }))
+  }
+
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
@@ -311,19 +318,17 @@ export function FormDialog() {
                             Pelo menos uma arma deve ser cadastrada*
                           </Text>
                         )}
-                        <RadioCards.Root
-                          defaultValue="1"
-                          columns={{ initial: '0', sm: '3' }}
-                        >
-                          {formData.weapons.map((weapon, index) => (
-                            <WeaponCard
-                              key={index}
-                              data={weapon}
-                              index={index}
-                            />
-                          ))}
-                        </RadioCards.Root>
                       </label>
+                      <Flex width={'auto'} wrap={'wrap'} gap={'3'}>
+                        {formData.weapons.map((weapon, index) => (
+                          <WeaponCard
+                            key={index}
+                            data={weapon}
+                            index={index}
+                            handleRemoveWeapon={handleRemoveWeapon}
+                          />
+                        ))}
+                      </Flex>
                     </Flex>
                   </div>
                 ),
