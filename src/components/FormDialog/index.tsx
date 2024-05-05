@@ -27,6 +27,7 @@ import {
   Box,
   RadioCards,
 } from '@radix-ui/themes'
+import axios from 'axios'
 
 export function FormDialog() {
   const [activeTab, setActiveTab] = useState('info')
@@ -36,7 +37,7 @@ export function FormDialog() {
     name: '',
     nickname: '',
     birthday: '',
-    keyAttribute: '',
+    keyAttribute: 'strength',
     attributes: {
       strength: 0,
       dexterity: 0,
@@ -80,16 +81,27 @@ export function FormDialog() {
       ...prevData,
       attributes: {
         ...prevData.attributes,
-        [fieldName]: value,
+        [fieldName]: parseInt(value),
       },
     }))
   }
 
-  const handleChangeWeapon = (fieldName: string, value: string | boolean) => {
-    setFormDataWeapon((prevData) => ({
-      ...prevData,
-      [fieldName]: value,
-    }))
+  const handleChangeWeapon = (
+    fieldName: string,
+    value: string | boolean,
+    type: string,
+  ) => {
+    if (type === 'number') {
+      setFormDataWeapon((prevData) => ({
+        ...prevData,
+        [fieldName]: parseInt(value as string),
+      }))
+    } else {
+      setFormDataWeapon((prevData) => ({
+        ...prevData,
+        [fieldName]: value,
+      }))
+    }
 
     if (errorsWeapon[fieldName]) {
       setErrorsWeapon((prevErrors) => {
@@ -101,12 +113,18 @@ export function FormDialog() {
   }
 
   const handleSubmit = async () => {
+    console.log('formario enviado', formData)
+
     try {
       await schemaKnight.validate(formData, { abortEarly: false })
 
       setErrors({})
 
       setOpen(false)
+
+      console.log('formario enviado', formData)
+
+      await axios.post('/api/knights', formData)
 
       setFormData({
         name: '',
@@ -123,16 +141,17 @@ export function FormDialog() {
         },
         weapons: [],
       })
-    } catch (err: any) {
-      const newErrors: { [key: string]: string } = {}
 
-      err.inner.forEach((error: any) => {
-        newErrors[error.path] = error.message
-      })
-      setErrors(newErrors)
+      setOpen(true)
+
+      alert('Knight added successfully')
+    } catch (error) {
+      setOpen(false)
+
+      console.log('erro', error)
+      alert('Failed to add knight')
     }
   }
-
   const handleSubmitWeapon = async () => {
     try {
       await schemaWeapon.validate(formDataWeapon, { abortEarly: false })

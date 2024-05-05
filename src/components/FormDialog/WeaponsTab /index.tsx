@@ -1,12 +1,15 @@
-import { IField, IFieldWeapons } from '@shared/types/IField'
-import { Knight } from '@shared/types/knight'
+import { IFieldWeapons } from '@shared/types/IField'
 import { Weapon } from '@shared/types/weapon'
 
-import { Button, Flex, Select, Switch, Text, TextField } from '@radix-ui/themes'
+import { Flex, Select, Switch, Text, TextField } from '@radix-ui/themes'
 
 interface WeaponsTabProps extends IFieldWeapons {
   formData: Weapon
-  handleChangeWeapon: (fieldName: string, value: string | boolean) => void
+  handleChangeWeapon: (
+    fieldName: string,
+    value: string | boolean,
+    type: string,
+  ) => void
   errors: {
     [key: string]: string
   }
@@ -39,7 +42,7 @@ export function WeaponsTab({
             name={value}
             value={formData[value] as string}
             onChange={(e) => {
-              handleChangeWeapon(value, e.target.value)
+              handleChangeWeapon(value, e.target.value, type as string)
             }}
           />
         )}
@@ -49,7 +52,7 @@ export function WeaponsTab({
             size="2"
             defaultValue={selectDefaultValue}
             onValueChange={(e) => {
-              handleChangeWeapon(value, e)
+              handleChangeWeapon(value, e, type as string)
             }}
           >
             <Select.Trigger />
@@ -70,7 +73,7 @@ export function WeaponsTab({
           <Flex align={'center'} gap={'10px'}>
             <Switch
               onCheckedChange={(e) => {
-                handleChangeWeapon(value, e)
+                handleChangeWeapon(value, e, type as string)
               }}
             />
             {formData.equipped ? 'Equipada' : 'Não Equipada'}
