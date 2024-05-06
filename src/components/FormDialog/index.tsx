@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 
 import {
   fieldsAttributes,
@@ -17,7 +18,7 @@ import { AttributeTab } from './AttributesTab'
 import { InfoTab } from './InfotTab'
 import { WeaponsTab } from './WeaponsTab '
 
-import { Plus } from '@phosphor-icons/react'
+import { Plus, WarningCircle } from '@phosphor-icons/react'
 import {
   Dialog,
   Button,
@@ -27,8 +28,13 @@ import {
   Box,
   RadioCards,
 } from '@radix-ui/themes'
+import axios from 'axios'
 
-export function FormDialog() {
+interface FormDialogProps {
+  getKnights: (filter?: string) => Promise<void>
+}
+
+export function FormDialog({ getKnights }: FormDialogProps) {
   const [activeTab, setActiveTab] = useState('info')
   const [open, setOpen] = useState(false)
 
@@ -36,7 +42,7 @@ export function FormDialog() {
     name: '',
     nickname: '',
     birthday: '',
-    keyAttribute: '',
+    keyAttribute: 'strength',
     attributes: {
       strength: 0,
       dexterity: 0,
@@ -80,17 +86,27 @@ export function FormDialog() {
       ...prevData,
       attributes: {
         ...prevData.attributes,
-        [fieldName]: value,
+        [fieldName]: parseInt(value),
       },
     }))
   }
 
-  const handleChangeWeapon = (fieldName: string, value: string | boolean) => {
-    console.log('to sendo chamado aqui')
-    setFormDataWeapon((prevData) => ({
-      ...prevData,
-      [fieldName]: value,
-    }))
+  const handleChangeWeapon = (
+    fieldName: string,
+    value: string | boolean,
+    type: string,
+  ) => {
+    if (type === 'number') {
+      setFormDataWeapon((prevData) => ({
+        ...prevData,
+        [fieldName]: parseInt(value as string),
+      }))
+    } else {
+      setFormDataWeapon((prevData) => ({
+        ...prevData,
+        [fieldName]: value,
+      }))
+    }
 
     if (errorsWeapon[fieldName]) {
       setErrorsWeapon((prevErrors) => {
@@ -102,22 +118,20 @@ export function FormDialog() {
   }
 
   const handleSubmit = async () => {
-    console.log('Fui acionado, mas nao deveria')
-
     try {
       await schemaKnight.validate(formData, { abortEarly: false })
-
-      console.log('Formulário válido, envie os dados:', formData)
 
       setErrors({})
 
       setOpen(false)
 
+      await axios.post('/api/knights', formData)
+
       setFormData({
         name: '',
         nickname: '',
         birthday: '',
-        keyAttribute: '',
+        keyAttribute: 'strength',
         attributes: {
           strength: 0,
           dexterity: 0,
@@ -128,46 +142,54 @@ export function FormDialog() {
         },
         weapons: [],
       })
-    } catch (err: any) {
+
+      setOpen(false)
+
+      toast.success('Cavaleiro cadastrado com sucesso')
+
+      getKnights()
+    } catch (error: any) {
+      setOpen(true)
+
       const newErrors: { [key: string]: string } = {}
 
-      err.inner.forEach((error: any) => {
+      error.inner.forEach((error: any) => {
         newErrors[error.path] = error.message
       })
+
       setErrors(newErrors)
+
+      console.log('erro', error)
+      !newErrors ?? toast.success('Falha ao cadastrar cavaleiro')
     }
   }
-
   const handleSubmitWeapon = async () => {
     try {
       await schemaWeapon.validate(formDataWeapon, { abortEarly: false })
 
-      console.log('Formulário de arma válido, envie os dados:', formDataWeapon)
-
       setErrorsWeapon({})
 
-      // Adicionando a nova arma ao array de armas no formData
       setFormData((prevState) => ({
         ...prevState,
         weapons: [...prevState.weapons, formDataWeapon],
       }))
 
+      setErrors((prevErrors) => {
+        const { weapons, ...restErrors } = prevErrors
+        return restErrors
+      })
       setFormDataWeapon({
         name: '',
         attr: 'strength',
         mod: 0,
         equipped: false,
       })
-
-      console.log(formData)
     } catch (err: any) {
       const newErrors: { [key: string]: string } = {}
 
       err.inner.forEach((error: any) => {
         newErrors[error.path] = error.message
       })
-
-      console.log(newErrors)
 
       setErrorsWeapon(newErrors)
     }
@@ -186,7 +208,7 @@ export function FormDialog() {
       name: '',
       nickname: '',
       birthday: '',
-      keyAttribute: '',
+      keyAttribute: 'strength',
       attributes: {
         strength: 0,
         dexterity: 0,
@@ -199,6 +221,13 @@ export function FormDialog() {
     })
 
     setOpen(false)
+  }
+
+  const handleRemoveWeapon = (index: number) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      weapons: prevState.weapons.filter((_, i) => i !== index),
+    }))
   }
 
   return (
@@ -261,7 +290,16 @@ export function FormDialog() {
               },
               {
                 value: 'weapons',
-                title: 'Armas',
+                title: (
+                  <Flex gap={'5px'} align={'center'}>
+                    <Text color={errors['weapons'] ? 'ruby' : 'gray'}>
+                      Armas
+                    </Text>
+                    {errors['weapons'] && (
+                      <WarningCircle color={'#D45268'} size={18} />
+                    )}
+                  </Flex>
+                ),
                 data: (
                   <div>
                     {fieldsWeapons.map(
@@ -305,19 +343,22 @@ export function FormDialog() {
                         <Text as="div" size="2" mb="1" weight="bold">
                           Armas Cadastradas
                         </Text>
-                        <RadioCards.Root
-                          defaultValue="1"
-                          columns={{ initial: '0', sm: '3' }}
-                        >
-                          {formData.weapons.map((weapon, index) => (
-                            <WeaponCard
-                              key={index}
-                              data={weapon}
-                              index={index}
-                            />
-                          ))}
-                        </RadioCards.Root>
+                        {errors['weapons'] && (
+                          <Text as="div" size="2" mb="1" color="ruby">
+                            Pelo menos uma arma deve ser cadastrada*
+                          </Text>
+                        )}
                       </label>
+                      <Flex width={'auto'} wrap={'wrap'} gap={'3'}>
+                        {formData.weapons.map((weapon, index) => (
+                          <WeaponCard
+                            key={index}
+                            data={weapon}
+                            index={index}
+                            handleRemoveWeapon={handleRemoveWeapon}
+                          />
+                        ))}
+                      </Flex>
                     </Flex>
                   </div>
                 ),

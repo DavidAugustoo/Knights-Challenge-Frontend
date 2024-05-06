@@ -5,7 +5,7 @@ import { Box, Tabs as TabsRadix } from '@radix-ui/themes'
 interface TabsProps {
   data: {
     value: string
-    title: string
+    title: string | ReactNode
     data: ReactNode
   }[]
   setActiveTab: Dispatch<string>

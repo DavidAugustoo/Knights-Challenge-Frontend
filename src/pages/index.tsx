@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { Knight } from '@shared/types/knight'
 
@@ -6,7 +7,7 @@ import { FormDialog } from '@components/FormDialog'
 import { Table } from '@components/Table'
 import { Tabs } from '@components/Tabs'
 
-import { Box, Container, Flex } from '@radix-ui/themes'
+import { Container, Flex } from '@radix-ui/themes'
 
 const Home: React.FC = () => {
   const [knights, setKnights] = useState<Knight[]>([])
@@ -47,11 +48,13 @@ const Home: React.FC = () => {
         const errorResponse = await response.json()
         throw new Error(errorResponse.message || 'Failed to delete the knight.')
       }
-      alert('Knight has been successfully deleted.')
+
+      toast.success('Status de vida atualizada com sucesso')
+
       getKnights(activeTab === 'hallOfHeros' ? 'heros' : undefined)
     } catch (error: any) {
       console.error('Failed to delete knight:', error)
-      alert(error.message)
+      toast.error(error.message)
     }
   }
 
@@ -68,13 +71,14 @@ const Home: React.FC = () => {
         const errorResponse = await response.json()
         throw new Error(errorResponse.message || 'Failed to update the knight.')
       }
-      alert('Cavaleiro atualizado com sucesso')
+      toast.success('Cavaleiro atualizado com sucesso')
+
       getKnights(activeTab === 'hallOfHeros' ? 'heros' : undefined)
 
       return true
     } catch (error: any) {
       console.error('Failed to update knight:', error)
-      alert(error.message)
+      toast.error(error.message)
 
       return false
     }
@@ -95,6 +99,7 @@ const Home: React.FC = () => {
       title: 'Cavaleiros',
       data: (
         <Table
+          isLoading={isLoading}
           columns={columns}
           data={knights}
           handleDeleteKnight={handleDiedKnight}
@@ -107,6 +112,7 @@ const Home: React.FC = () => {
       title: 'Hall of Heros',
       data: (
         <Table
+          isLoading={isLoading}
           columns={columns}
           data={knights}
           handleDeleteKnight={handleDiedKnight}
@@ -124,7 +130,7 @@ const Home: React.FC = () => {
           setActiveTab={setActiveTab}
           defaultActive="knights"
         />
-        <FormDialog />
+        <FormDialog getKnights={getKnights} />
       </Flex>
     </Container>
   )

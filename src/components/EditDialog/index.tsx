@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { Knight } from '@shared/types/knight'
 
-import { Eye, PencilSimple } from '@phosphor-icons/react'
+import { PencilSimple } from '@phosphor-icons/react'
 import {
   Box,
   Button,
@@ -26,7 +27,7 @@ export function EditDialog({ data, handleEditKnight }: EditDialogProps) {
 
   const saveChanges = async () => {
     if (nickname.trim() === '') {
-      alert('O nickname não pode estar vazio.')
+      toast.warn('O nickname não pode estar vazio.')
       return
     }
     setIsSubmitting(true)
@@ -35,7 +36,7 @@ export function EditDialog({ data, handleEditKnight }: EditDialogProps) {
       setOpen(!isSuccess)
     } catch (error) {
       console.error('Erro ao atualizar o cavaleiro:', error)
-      alert('Falha ao atualizar o cavaleiro.')
+      toast.error('Falha ao atualizar o cavaleiro.')
     } finally {
       setIsSubmitting(false)
     }
